@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('central', 'TrailerController');//acceder de forma general al controlador
+Route::resource('choferes', 'ChoferesController');//acceder de forma general al controlador
+Route::resource('taller', 'TallerMecanicoController');//acceder de forma general al controlador
+Route::resource('usuarios', 'UsuariosLogeadosController');//acceder de forma general al controlador
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
