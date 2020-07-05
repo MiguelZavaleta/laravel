@@ -3,8 +3,8 @@
     <input type="text" 
     placeholder="Id del usuario"
     name="id_usuario"  
-    id="id_usuario"class="form-control"
-     value="{{isset($usuario->id_usuario)?$usuario->id_usuario:''}}"
+    id="id_usuario"class="form-control {{$errors->has('id_usuario')?'is-invalid':''}} "
+     value="{{isset($usuario->id_usuario)?$usuario->id_usuario:old('id_usuario')}}"
     >
 </div>
 
@@ -12,16 +12,16 @@
     <input type="text" 
     placeholder="Nombre Completo"
     name="nombre" 
-    id="nombre" class="form-control"
-     value="{{isset($usuario->nombre)?$usuario->nombre:''}}"
+    id="nombre" class="form-control {{$errors->has('nombre')?'is-invalid':''}} "
+     value="{{isset($usuario->nombre)?$usuario->nombre:old('nombre')}}"
     >
 </div>
 <div class="form-group">
     <input type="text" 
     name="ap_paterno" 
     placeholder="Apellido Paterno"
-    id="ap_paterno" class="form-control"
-    value="{{isset($usuario->ap_paterno)?$usuario->ap_paterno:''}}"
+    id="ap_paterno" class="form-control {{$errors->has('ap_paterno')?'is-invalid':''}} "
+    value="{{isset($usuario->ap_paterno)?$usuario->ap_paterno:old('ap_paterno')}}"
     >
 </div>
 
@@ -29,8 +29,8 @@
     <input type="text"
     placeholder="Apellido Materno"
      name="ap_materno"
-      id="ap_materno" class="form-control"
-      value="{{isset($usuario->ap_materno)?$usuario->ap_materno:''}}"
+      id="ap_materno" class="form-control {{$errors->has('ap_materno')?'is-invalid':''}} "
+      value="{{isset($usuario->ap_materno)?$usuario->ap_materno:old('ap_materno')}}"
       >
 </div>
 
@@ -38,8 +38,8 @@
     <input type="text"
     placeholder="Correo Electronico"
      name="correo" 
-     id="correo" class="form-control"
-     value="{{isset($usuario->correo)?$usuario->correo:''}}"
+     id="correo" class="form-control  {{$errors->has('correo')?'is-invalid':''}}"
+     value="{{isset($usuario->correo)?$usuario->correo:old('correo')}}"
      >
 </div>
 
@@ -47,16 +47,16 @@
     <input type="text"
     placeholder="Password"
      name="contrasena"  
-     id="contrasena"class="form-control"
-     value="{{isset($usuario->contrasena)?$usuario->contrasena:''}}"
+     id="contrasena"class="form-control {{$errors->has('contrasena')?'is-invalid':''}} "
+     value="{{isset($usuario->contrasena)?$usuario->contrasena:old('contrasena')}}"
      >
 </div>
 <div class="form-group">
     <input type="number"
     placeholder="Telefono"
      name="telefono"  
-     id="telefono"class="form-control"
-     value="{{isset($usuario->telefono)?$usuario->telefono:''}}"
+     id="telefono"class="form-control {{$errors->has('telefono')?'is-invalid':''}} "
+     value="{{isset($usuario->telefono)?$usuario->telefono:old('telefono')}}"
      >
 </div>
 <label for="">Sexo</label>
@@ -64,19 +64,19 @@
     <input type="radio" 
     value="Masculino"
     id="Sexo" 
-    name="Sexo" class="custom-control-input"
+    name="Sexo" class="custom-control-input {{$errors->has('Sexo')?'is-invalid':''}} "
      {{isset($usuario->sexo)?($usuario->sexo=="Masculino"?'checked':""):''}}>
     <label class="custom-control-label" for="customRadio1" >Masculino</label>
   </div>
   <div class="custom-control custom-radio">
     <input type="radio"
      id="Sexo"
-     name="Sexo" class="custom-control-input" value="Femenino"
+     value="Femenino"
+     name="Sexo" class="custom-control-input {{$errors->has('Sexo')?'is-invalid':'' }}"
       {{isset($usuario->sexo)?($usuario->sexo=="Femenino"?'checked':""):''}}>
     <label class="custom-control-label" for="customRadio2">Femenino</label>
   </div>
 
 
-<button type="submit" class="btn btn-success" >{{$Modo=='crear'?'Agregar':'Modificar'}}</button>
-{{$Modo=='crear'?'fas fa-user-plus':'fas fa-edit'}}
-<a class="btn btn-primary" href="{{url('/usuarios')}}">Regresar Nuevo<i class="fas fa-edit"></i> </a>
+<button type="submit" class="btn btn-success" >{{$Modo=='crear'?'Agregar':'Modificar'}}<li class="{{$Modo=='crear'?'fas fa-user-plus':'fas fa-edit'}}"></li></button>
+<a class="btn btn-primary" href="{{url('/usuarios')}}">Regresar Nuevo</a>

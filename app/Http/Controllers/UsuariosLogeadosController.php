@@ -38,10 +38,22 @@ class UsuariosLogeadosController extends Controller
      */
     public function store(Request $request)
     {
+         //validaciones 
+         $campos=[
+            "id_usuario"=>'required|string|',
+            "nombre"=>'required|string|',
+            "ap_paterno"=>'required|string|',
+            "ap_materno"=>'required|string|',
+            "correo"=>'required|string|email',
+            "contrasena"=>'required|string|',
+            "telefono"=>'required|min:11|numeric'
+            ];
+            $Mensaje=["required"=>"El :attribute es requerido"];
+            $this->validate($request,$campos,$Mensaje);
         //
         $datosUsuarios=request()->all();
         $datosUsuarios=request()->except('_token');
-
+       
         usuarios_logeados::insert($datosUsuarios);
 
        // return response()->json($datosUsuarios);
