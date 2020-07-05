@@ -44,7 +44,8 @@ class UsuariosLogeadosController extends Controller
 
         usuarios_logeados::insert($datosUsuarios);
 
-        return response()->json($datosUsuarios);
+       // return response()->json($datosUsuarios);
+       return redirect('usuarios')->with('Mensaje','Usuario Capturado con Exito');
     }
 
     /**
@@ -64,9 +65,16 @@ class UsuariosLogeadosController extends Controller
      * @param  \App\usuarios_logeados  $usuarios_logeados
      * @return \Illuminate\Http\Response
      */
-    public function edit(usuarios_logeados $usuarios_logeados)
+    public function edit( $id)
     {
         //
+       // $usuario=usuarios_logeados::findOrfail($id);//si se maneja un id por defecto auto increment
+       //usuarios_logeados::where('slug', '=', 'about')->firstOrFail();
+        //$usuario=usuarios_logeados::firstOrFail()->where('id_usuario=', $id.'');//si personalizamos el id
+        $usuario=usuarios_logeados::where('id_usuario',$id)->first();
+    
+        return view('usuarios.edit',compact('usuario'));
+        
     }
 
     /**
@@ -76,9 +84,17 @@ class UsuariosLogeadosController extends Controller
      * @param  \App\usuarios_logeados  $usuarios_logeados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, usuarios_logeados $usuarios_logeados)
+    public function update(Request $request,$id)
     {
         //
+        $datosUsuarios=request()->except(['_token','_method']);
+        usuarios_logeados::where('id_usuario','=',$id.'')->update($datosUsuarios);
+
+        $usuario=usuarios_logeados::where('id_usuario',$id)->first();
+    
+        //return view('usuarios.edit',compact('usuario'));
+        return redirect('usuarios')->with('Mensaje','Usuario Modificado con Exito');
+        
     }
 
     /**
