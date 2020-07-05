@@ -6,10 +6,10 @@
 }}
     
 @endif
-<a class="btn btn-success "href="{{url('/usuarios/create')}}"><i class="fas fa-user-plus"></i>Crear Usuario Nuevo</a>
+<a class="btn btn-success "href="{{url('/usuarios/create')}}">Crear Usuario Nuevo <i class="fas fa-user-plus"></i></a>
 <br><br>
 
-<table class="table">
+<table class="table table-hover ">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Id</th>
@@ -34,11 +34,11 @@
            <td>{{$usuario->contrasena}}</td>
            <td>{{$usuario->telefono}}</td>
            <td>{{$usuario->sexo}}</td>
-           <td><a class="btn btn-warning" href="{{url('/usuarios/'.$usuario->id_usuario.'/edit')}}">Editar</a>
+           <td><a class="btn btn-warning" href="{{url('/usuarios/'.$usuario->id_usuario.'/edit')}}"><strong>Modificar&nbsp<i class="fas fa-user-edit"></i></strong></a>
             <form method="POST"action="{{url('/usuarios/'.$usuario->id_usuario)}}" class="d-inline" >
             {{csrf_field()}}
             {{method_field('DELETE')}}
-            <button class="btn btn-danger" type="submit" onclick="return confirm('Borrar?{{$usuario->id_usuario}}');">Borrar</button>
+            <button class="btn btn-danger" type="submit" onclick="return confirm('Borrar?{{$usuario->id_usuario}}');"><strong>Eliminar&nbsp;<i class="fas fa-trash"></i></strong></button>
         </form>
 
            </td>

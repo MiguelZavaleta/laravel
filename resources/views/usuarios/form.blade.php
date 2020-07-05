@@ -77,6 +77,6 @@
   </div>
 
 
-<input type="submit" class="btn btn-primary" value="
-{{$Modo=='crear'?'Agregar':'Modificar'}}">
-<a href="{{url('/usuarios')}}">Regresar Nuevo</a>
+<button type="submit" class="btn btn-success" >{{$Modo=='crear'?'Agregar':'Modificar'}}</button>
+{{$Modo=='crear'?'fas fa-user-plus':'fas fa-edit'}}
+<a class="btn btn-primary" href="{{url('/usuarios')}}">Regresar Nuevo<i class="fas fa-edit"></i> </a>
