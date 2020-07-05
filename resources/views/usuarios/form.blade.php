@@ -59,23 +59,32 @@
      value="{{isset($usuario->telefono)?$usuario->telefono:old('telefono')}}"
      >
 </div>
+<div class="form-group">
 <label for="">Sexo</label>
-<div class="custom-control custom-radio">
-    <input type="radio" 
-    value="Masculino"
+<div class="form-check">
+    <input class="form-check-input {{$errors->has('Sexo')?'is-invalid':''}} " type="radio" value="Masculino"
     id="Sexo" 
-    name="Sexo" class="custom-control-input {{$errors->has('Sexo')?'is-invalid':''}} "
-     {{isset($usuario->sexo)?($usuario->sexo=="Masculino"?'checked':""):''}}>
-    <label class="custom-control-label" for="customRadio1" >Masculino</label>
+    name="Sexo" 
+    {{isset($usuario->sexo)?($usuario->sexo=="Masculino"?'checked':""):''}}
+    >
+    <label class="form-check-label" for="gridRadios1">
+      Masculino
+    </label>
   </div>
-  <div class="custom-control custom-radio">
-    <input type="radio"
-     id="Sexo"
-     value="Femenino"
-     name="Sexo" class="custom-control-input {{$errors->has('Sexo')?'is-invalid':'' }}"
-      {{isset($usuario->sexo)?($usuario->sexo=="Femenino"?'checked':""):''}}>
-    <label class="custom-control-label" for="customRadio2">Femenino</label>
+  <div class="form-check">
+    <input class="form-check-input {{$errors->has('Sexo')?'is-invalid':'' }}" type="radio" 
+    id="Sexo"
+    value="Femenino"
+    name="Sexo"
+    {{isset($usuario->sexo)?($usuario->sexo=="Femenino"?'checked':""):''}}
+    >
+    <label class="form-check-label" for="gridRadios2">
+     Femenino
+    </label>
   </div>
+
+</div>
+
 
 
 <button type="submit" class="btn btn-success" >{{$Modo=='crear'?'Agregar':'Modificar'}}<li class="{{$Modo=='crear'?'fas fa-user-plus':'fas fa-edit'}}"></li></button>

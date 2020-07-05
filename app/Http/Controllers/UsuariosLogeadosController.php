@@ -46,7 +46,8 @@ class UsuariosLogeadosController extends Controller
             "ap_materno"=>'required|string|',
             "correo"=>'required|string|email',
             "contrasena"=>'required|string|',
-            "telefono"=>'required|min:11|numeric'
+            "telefono"=>'required|min:11|numeric',
+            "Sexo"=>'required'
             ];
             $Mensaje=["required"=>"El :attribute es requerido"];
             $this->validate($request,$campos,$Mensaje);
@@ -98,6 +99,19 @@ class UsuariosLogeadosController extends Controller
      */
     public function update(Request $request,$id)
     {
+
+        $campos=[
+            "id_usuario"=>'required|string|',
+            "nombre"=>'required|string|',
+            "ap_paterno"=>'required|string|',
+            "ap_materno"=>'required|string|',
+            "correo"=>'required|string|email',
+            "contrasena"=>'required|string|',
+            "telefono"=>'required|min:11|numeric',
+            "Sexo"=>'required'
+            ];
+            $Mensaje=["required"=>"El :attribute es requerido"];
+            $this->validate($request,$campos,$Mensaje);
         //
         $datosUsuarios=request()->except(['_token','_method']);
         usuarios_logeados::where('id_usuario','=',$id.'')->update($datosUsuarios);

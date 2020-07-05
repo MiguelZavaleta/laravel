@@ -2,7 +2,15 @@
 
 @section('content')
 <div class="container">
-
+    @if (count($errors))
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>        
+    @endif
 
 <form action="{{url('/usuarios/'.$usuario->id_usuario)}}" method="post" enctype="">
     {{ csrf_field()}}
