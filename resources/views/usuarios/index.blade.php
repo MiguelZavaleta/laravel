@@ -6,7 +6,7 @@
 }}
     
 @endif
-<a class="btn btn-success"href="{{url('/usuarios/create')}}">Crear Usuario Nuevo</a>
+<a class="btn btn-success "href="{{url('/usuarios/create')}}"><i class="fas fa-user-plus"></i>Crear Usuario Nuevo</a>
 <br><br>
 
 <table class="table">
@@ -34,14 +34,11 @@
            <td>{{$usuario->contrasena}}</td>
            <td>{{$usuario->telefono}}</td>
            <td>{{$usuario->sexo}}</td>
-           <td><a
-            href="{{url('/usuarios/'.$usuario->id_usuario.'/edit')}}">Editar</a>
-
-            <form method="POST"action="{{url('/usuarios/'.$usuario->id_usuario)}}" >
-
+           <td><a class="btn btn-warning" href="{{url('/usuarios/'.$usuario->id_usuario.'/edit')}}">Editar</a>
+            <form method="POST"action="{{url('/usuarios/'.$usuario->id_usuario)}}" class="d-inline" >
             {{csrf_field()}}
             {{method_field('DELETE')}}
-            <button type="submit" onclick="return confirm('Borrar?{{$usuario->id_usuario}}');">Borrar</button>
+            <button class="btn btn-danger" type="submit" onclick="return confirm('Borrar?{{$usuario->id_usuario}}');">Borrar</button>
         </form>
 
            </td>
