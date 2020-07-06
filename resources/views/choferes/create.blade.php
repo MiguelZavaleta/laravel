@@ -1,41 +1,22 @@
-<form action="{{url('/central')}}" method="post" enctype="multipart/form-data">
+@extends('layouts.app')
+@section('content')
+<div class="container">
+@if (count($errors))
+<div class="alert alert-danger" role="alert">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </ul>
+</div>        
+@endif
+
+<form action="{{url('/choferes')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
  {{ csrf_field()}}
-  
- <div class="form-group">
-    <label for="">Numero de chofer</label>
-    <input type="text" name="id_chofer" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Nombre</label>
-    <input type="text" name="name" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Apellido Paterno</label>
-    <input type="text" name="Apellido_paterno" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Apellido Materno</label>
-    <input type="text" name="Apellido_materno" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Edad</label>
-    <input type="text" name="Edad" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Sexo</label>
-    <input type="text" name="Sexo" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Telefono</label>
-    <input type="text" name="Telefono" class="form-control">
-</div>
-
-
-<button type="submit" class="btn btn-primary">GUARDAR</button>
+ @include('choferes.form',['Modo'=>'crear'])
+    
 </form>
+
+
+</div>
+@endsection

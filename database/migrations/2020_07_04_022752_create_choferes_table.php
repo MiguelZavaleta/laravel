@@ -14,13 +14,13 @@ class CreateChoferesTable extends Migration
     public function up()
     {
         Schema::create('choferes', function (Blueprint $table) {
-            $table->integer('id_chofer integer(5)');
-            $table->string('nombre_chofer varchar(20)');
-            $table->string('ap_paterno varchar(15)');
-            $table->string('ap_materno varchar(15)');
-            $table->integer('edad integer(5)');
-            $table->string('sexo varchar(10)');
-            $table->string('telefono varchar(10');
+            $table->integer('id_chofer');
+            $table->string('nombre_chofer');
+            $table->string('ap_paterno');
+            $table->string('ap_materno');
+            $table->integer('edad');
+            $table->string('sexo');
+            $table->string('telefono');
             $table->timestamps();
         });
     }

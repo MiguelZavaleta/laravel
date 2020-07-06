@@ -15,7 +15,10 @@ class ChoferesController extends Controller
     public function index()
     {
         //
-        return view('choferes.index');
+        $datos['choferes'] = choferes::paginate(2);
+        return view('choferes.index', $datos);
+    
+      
     }
 
     /**
@@ -38,8 +41,24 @@ class ChoferesController extends Controller
     public function store(Request $request)
     {
         //
-        $datosChofer=request()->all();
-        return response()->json($datosChofer);
+        $campos = [
+            "id_chofer"=>'required|numeric|unique:choferes',
+            "nombre_chofer"=>'required|string|',
+            "ap_paterno"=>'required|string|',
+            "ap_materno"=>'required|string|',
+            "edad"=>'required|min:1|numeric|digits_between:1,99',
+            "sexo"=>'required|string|',
+            "telefono"=>'required|min:11|numeric',
+            
+        ];
+        $Mensaje = ["required" => "El :attribute es requerido"];
+        $this->validate($request, $campos, $Mensaje);
+        $datoschofer = request()->all();
+        $datoschofer = request()->except('_token');
+
+        choferes::insert($datoschofer);
+                      
+        return redirect('choferes')->with('Mensaje', ' Chofer Capturado Correctamente');
     }
 
     /**
@@ -59,9 +78,12 @@ class ChoferesController extends Controller
      * @param  \App\choferes  $choferes
      * @return \Illuminate\Http\Response
      */
-    public function edit(choferes $choferes)
+    public function edit($id)
     {
         //
+        $chofer = choferes::where('id_chofer', $id)->first();
+
+        return view('choferes.edit', compact('chofer'));
     }
 
     /**
@@ -71,9 +93,28 @@ class ChoferesController extends Controller
      * @param  \App\choferes  $choferes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, choferes $choferes)
+    public function update(Request $request,$id)
     {
         //
+        $campos = [
+            "id_chofer"=>'required|numeric',
+            "nombre_chofer"=>'required|string|',
+            "ap_paterno"=>'required|string|',
+            "ap_materno"=>'required|string|',
+            "edad"=>'required|min:1|numeric|digits_between:1,99',
+            "sexo"=>'required|string|',
+            "telefono"=>'required|min:11|numeric',
+            
+        ];
+        $Mensaje = ["required" => "El :attribute es requerido"];
+        $this->validate($request, $campos, $Mensaje);
+        //
+        $datoschofer = request()->except(['_token', '_method']);
+        choferes::where('id_chofer', '=', $id . '')->update($datoschofer);
+
+        $usuario = choferes::where('id_chofer', $id)->first();
+        //return view('usuarios.edit',compact('usuario'));
+        return redirect('choferes')->with('Mensaje', 'Usuario Modificado con Exito');
     }
 
     /**
@@ -82,8 +123,12 @@ class ChoferesController extends Controller
      * @param  \App\choferes  $choferes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(choferes $choferes)
+    public function destroy($id)
     {
         //
+        choferes::where('id_chofer', '=', $id . '')->delete();
+        // usuarios_logeados::destroy($id_usuarios);
+        return redirect('choferes');
+
     }
 }
