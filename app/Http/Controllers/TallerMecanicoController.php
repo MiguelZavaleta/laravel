@@ -15,7 +15,7 @@ class TallerMecanicoController extends Controller
     public function index()
     {
         //
-        $datos['usuarios'] = taller_mecanico::paginate(2);
+        $datos['herramientas'] = taller_mecanico::paginate(2);
         return view('taller.index', $datos);
     
     }

@@ -12,7 +12,7 @@
     </div>        
     @endif
 
-<form action="{{url('/taller/'.$usuario->id)}}" method="post" enctype="">
+<form action="{{url('/taller/'.$herramienta->id_herramienta)}}" method="post" enctype="">
     {{ csrf_field()}}
     {{method_field('PATCH')}}
     @include('taller.form',['Modo'=>'editar'])
