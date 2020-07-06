@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::resource('central', 'TrailerController')->middleware('auth');//acceder de forma general al controlador
-Route::resource('choferes', 'ChoferesController')->middleware('auth');//acceder de forma general al controlador
-Route::resource('taller', 'TallerMecanicoController')->middleware('auth');//acceder de forma general al controlador
+Route::resource('central', 'TrailerController');//acceder de forma general al controlador
+Route::resource('choferes', 'ChoferesController');//acceder de forma general al controlador
+Route::resource('taller', 'TallerMecanicoController');//acceder de forma general al controlador
 Route::resource('usuarios', 'UsuariosLogeadosController')->middleware('auth');//acceder de forma general al controlador
 
 
-Auth::routes(['register'=>false,'reset'=>false]);
+Auth::routes(['register'=>true,'reset'=>true]);
 
-Route::get('/home', 'UsuariosLogeadosController@index')->name('home');
+Route::get('/home', 'UsuariosLogeadosController@index')->name('home');//ruta despues de acceder al login

@@ -14,11 +14,11 @@ class CreateUsuariosLogeadosTable extends Migration
     public function up()
     {
         Schema::create('usuarios_logeados', function (Blueprint $table) {
-             $table->integer('id_usuario');
+             $table->string('id_usuario')->primary()->unique();
              $table->string('nombre');
              $table->string('ap_paterno');
              $table->string('ap_materno');
-             $table->string('correo');
+             $table->string('correo')->unique();
              $table->string('contrasena');
              $table->string('telefono');
              $table->string('sexo');
