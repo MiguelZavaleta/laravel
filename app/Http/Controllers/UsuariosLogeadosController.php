@@ -118,7 +118,7 @@ class UsuariosLogeadosController extends Controller
         $datosUsuarios = request()->except(['_token', '_method']);
         usuarios_logeados::where('id_usuario', '=', $id . '')->update($datosUsuarios);
 
-        $usuario = usuarios_logeados::where('id_usuario', $id)->first();
+        //$usuario = usuarios_logeados::where('id_usuario', $id)->first();
 
         //return view('usuarios.edit',compact('usuario'));
         return redirect('usuarios')->with('Mensaje', 'Usuario Modificado con Exito');

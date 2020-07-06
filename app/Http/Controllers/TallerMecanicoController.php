@@ -105,8 +105,7 @@ class TallerMecanicoController extends Controller
         //
         $datosHerramientas = request()->except(['_token', '_method']);
         taller_mecanico::where('id_herramienta', '=', $id . '')->update($datosHerramientas);
-
-        $usuario = taller_mecanico::where('id_herramienta', $id)->first();
+       // $usuario = taller_mecanico::where('id_herramienta', $id)->first();
 
         //return view('usuarios.edit',compact('usuario'));
         return redirect('taller')->with('Mensaje', 'Usuario Modificado con Exito');

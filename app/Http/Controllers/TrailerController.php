@@ -15,7 +15,9 @@ class TrailerController extends Controller
     public function index()
     {
         //
-        return view('central.index');
+        $datos['trailers'] = trailer::paginate(2);
+
+        return view('central.index', $datos);
     }
 
     /**
@@ -37,9 +39,24 @@ class TrailerController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $datosTrailer=request()->all();
-        return response()->json($datosTrailer);
+        $campos = [
+            "id_trailer" => 'required|numeric|unique:trailers',
+            "marca" => 'required|string|',
+            "modelo" => 'required|string|',
+            "color" => 'required|string|',
+            "num_llanta" => 'required|numeric',
+            "num_cajasdecarga" => 'required|numeric'
+        ];
+
+        $Mensaje = ["required" => "El :attribute es requerido"];
+        $this->validate($request, $campos, $Mensaje);
+        $datosTrailer = request()->all();
+        $datosTrailer = request()->except('_token');
+
+        trailer::insert($datosTrailer);
+             
+                    
+        return redirect('central')->with('Mensaje', 'Trailer Capturado Correctamente');
     }
 
     /**
@@ -59,9 +76,12 @@ class TrailerController extends Controller
      * @param  \App\trailer  $trailer
      * @return \Illuminate\Http\Response
      */
-    public function edit(trailer $trailer)
+    public function edit($id)
     {
         //
+        $trailer = trailer::where('id_trailer', $id)->first();
+
+        return view('central.edit', compact('trailer'));
     }
 
     /**
@@ -71,9 +91,28 @@ class TrailerController extends Controller
      * @param  \App\trailer  $trailer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, trailer $trailer)
+    public function update(Request $request,$id)
     {
         //
+        $campos = [
+            "id_trailer" => 'required|numeric',
+            "marca" => 'required|string|',
+            "modelo" => 'required|string|',
+            "color" => 'required|string|',
+            "num_llanta" => 'required|numeric',
+            "num_cajasdecarga" => 'required|numeric',
+        ];
+        $Mensaje = ["required" => "El :attribute es requerido"];
+        $this->validate($request, $campos, $Mensaje);
+        //
+        $datosTrailer = request()->except(['_token', '_method']);
+        trailer::where('id_trailer', '=', $id . '')->update($datosTrailer);
+
+        //$trailers = trailer::where('id_trailer', $id)->first();
+
+        //return view('usuarios.edit',compact('usuario'));
+        return redirect('central')->with('Mensaje', 'Trailer Modificado con Exito');
+        
     }
 
     /**
@@ -82,8 +121,11 @@ class TrailerController extends Controller
      * @param  \App\trailer  $trailer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(trailer $trailer)
+    public function destroy($id)
     {
         //
+        trailer::where('id_trailer', '=', $id . '')->delete();
+        // usuarios_logeados::destroy($id_usuarios);
+        return redirect('central');
     }
 }
