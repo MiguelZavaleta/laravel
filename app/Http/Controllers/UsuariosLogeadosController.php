@@ -87,8 +87,7 @@ class UsuariosLogeadosController extends Controller
         // $usuario=usuarios_logeados::findOrfail($id);//si se maneja un id por defecto auto increment
         //usuarios_logeados::where('slug', '=', 'about')->firstOrFail();
         //$usuario=usuarios_logeados::firstOrFail()->where('id_usuario=', $id.'');//si personalizamos el id
-       // $usuario = usuarios_logeados::where('id_usuario', $id)->first();
-       $usuario = db::select('select from users where id_usuario', $id);
+        $usuario = usuarios_logeados::where('id_usuario', $id)->first();
 
         return view('usuarios.edit', compact('usuario'));
     }

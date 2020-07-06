@@ -1,21 +1,22 @@
-<form action="{{url('/central')}}" method="post" enctype="multipart/form-data">
+@extends('layouts.app')
+@section('content')
+<div class="container">
+@if (count($errors))
+<div class="alert alert-danger" role="alert">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </ul>
+</div>        
+@endif
+
+<form action="{{url('/taller')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
  {{ csrf_field()}}
- <div class="form-group">
-    <label for="">Numero de herramienta</label>
-    <input type="text" name="id_herramienta" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Nombre de la herramienta</label>
-    <input type="text" name="nombre_herramienta" class="form-control">
-</div>
-
-<div class="form-group">
-    <label for="">Cantidad de herramientas en existencia</label>
-    <input type="text" name="cantidad_de_herramienta" class="form-control">
-</div>
-
-
-
-<button type="submit" class="btn btn-primary">GUARDAR</button>
+ @include('taller.form',['Modo'=>'crear'])
+    
 </form>
+
+
+</div>
+@endsection

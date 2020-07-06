@@ -15,7 +15,9 @@ class TallerMecanicoController extends Controller
     public function index()
     {
         //
-        return view('taller.index');
+        $datos['usuarios'] = taller_mecanico::paginate(2);
+        return view('taller.index', $datos);
+    
     }
 
     /**
@@ -37,9 +39,23 @@ class TallerMecanicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $datosTaller=request()->all();
-        return response()->json($datosTaller);
+        $campos = [
+            "id_herramienta" => 'required|string|',
+            "nombre_herramienta" => 'required|string|',
+            "cantidad_de_herramienta" => 'required|string|',
+            
+        ];
+
+        $Mensaje = ["required" => "El :attribute es requerido"];
+        $this->validate($request, $campos, $Mensaje);
+        $datosHerramientas = request()->all();
+        $datosHerramientas = request()->except('_token');
+
+        taller_mecanico::insert($datosHerramientas);
+             
+                    
+        return redirect('taller')->with('Mensaje', ' Herramienta Capturada Correctamente');
+        // return response()->json($datosUsuarios);
     }
 
     /**
@@ -59,9 +75,12 @@ class TallerMecanicoController extends Controller
      * @param  \App\taller_mecanico  $taller_mecanico
      * @return \Illuminate\Http\Response
      */
-    public function edit(taller_mecanico $taller_mecanico)
+    public function edit($id)
     {
         //
+        $herramienta = taller_mecanico::where('id_herramienta', $id)->first();
+
+        return view('taller.edit', compact('herramienta'));
     }
 
     /**
@@ -71,9 +90,26 @@ class TallerMecanicoController extends Controller
      * @param  \App\taller_mecanico  $taller_mecanico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, taller_mecanico $taller_mecanico)
+    public function update(Request $request,$id)
     {
         //
+        $campos = [
+            "id_herramienta" => 'required|string|',
+            "nombre_herramienta" => 'required|string|',
+            "cantidad_de_herramienta" => 'required|string|',
+            
+        ];
+
+        $Mensaje = ["required" => "El :attribute es requerido"];
+        $this->validate($request, $campos, $Mensaje);
+        //
+        $datosHerramientas = request()->except(['_token', '_method']);
+        taller_mecanico::where('id_herramienta', '=', $id . '')->update($datosHerramientas);
+
+        $usuario = taller_mecanico::where('id_herramienta', $id)->first();
+
+        //return view('usuarios.edit',compact('usuario'));
+        return redirect('taller')->with('Mensaje', 'Usuario Modificado con Exito');
     }
 
     /**
@@ -82,8 +118,12 @@ class TallerMecanicoController extends Controller
      * @param  \App\taller_mecanico  $taller_mecanico
      * @return \Illuminate\Http\Response
      */
-    public function destroy(taller_mecanico $taller_mecanico)
+    public function destroy($id)
     {
         //
+        taller_mecanico::where('id_herramienta', '=', $id . '')->delete();
+        // usuarios_logeados::destroy($id_usuarios);
+
+        return redirect('taller');
     }
 }
